@@ -326,15 +326,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 <body>
 
 <div class="hdr">
-  <div class="hdr-menu">
-    <button class="ptoggle" onclick="toggleHeaderMenu()" title="Menu">&#9776;</button>
-    <div class="hdr-dropdown" id="hdr-dropdown">
-      <button class="hdd-item" onclick="openProfile();toggleHeaderMenu()">&#128100; Profile</button>
-      <button class="hdd-item" onclick="openSettings();toggleHeaderMenu()">&#9881; Settings</button>
-      <hr class="hdd-sep">
-      <button class="hdd-item hdd-danger" onclick="resetGame()">&#8634; Reset Game</button>
-    </div>
-  </div>
+  <button class="ptoggle" onclick="togglePanel()" title="Elements">&#9871;</button>
   <div class="hdr-center">
     <div class="hstats">
       <span class="hstat-inline"><em id="s-found">4</em><span class="hstat-sep">/</span><em id="s-total">0</em></span>
@@ -346,7 +338,15 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   <em id="s-new" style="display:none">0</em>
   <div class="hdr-right">
     <button class="hbtn" onclick="clearWS()" title="Clear board">Clear</button>
-    <button class="ptoggle" onclick="togglePanel()" title="Elements">&#9871;</button>
+    <div class="hdr-menu">
+      <button class="hbtn hbtn-menu" onclick="toggleHeaderMenu()" title="Menu">&#8942;</button>
+      <div class="hdr-dropdown" id="hdr-dropdown">
+        <button class="hdd-item" onclick="openProfile();toggleHeaderMenu()">&#128100; Profile</button>
+        <button class="hdd-item" onclick="openSettings();toggleHeaderMenu()">&#9881; Settings</button>
+        <hr class="hdd-sep">
+        <button class="hdd-item hdd-danger" onclick="resetGame()">&#8634; Reset Game</button>
+      </div>
+    </div>
   </div>
 </div>
 <div class="pbar"><div class="pbar-f" id="pbar" style="width:0"></div></div>
