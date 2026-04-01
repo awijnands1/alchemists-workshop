@@ -30,16 +30,13 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 
 /* HEADER */
 .hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:var(--surf);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 10px;gap:6px;z-index:50}
-.hdr-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;overflow:hidden}
-.htitle{font-size:.72rem;font-family:var(--font-display);color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.hstats{display:flex;align-items:center;gap:8px}
-.hstat{display:flex;flex-direction:column;align-items:center;gap:1px}
-.hstat-n{font-size:1.1rem;font-family:var(--font-display);color:var(--gold);line-height:1;font-weight:normal}
-.hstat-n em{font-style:normal}
-.hstat-sep{color:var(--dim);font-size:.8rem;margin:0 1px}
+.hdr-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:0;overflow:hidden}
+.hstats{display:flex;align-items:center;gap:6px;font-size:1rem;font-family:var(--font-display)}
+.hstat-inline{color:var(--gold);line-height:1}
+.hstat-inline em{font-style:normal}
 .hstat-n-done em{color:var(--green)}
-.hstat-l{font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--dim)}
-.hstat-div{width:1px;height:28px;background:var(--border)}
+.hstat-sep{color:var(--dim);font-size:.85rem;margin:0 1px}
+.hstat-div{width:1px;height:16px;background:var(--border)}
 /* RANK */
 .hrank{font-size:.62rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--dim);text-align:center;margin-top:1px;transition:color .4s}
 .hrank.rank-0{color:var(--dim)}
@@ -65,12 +62,19 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 #rankup.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .rankup-label{font-size:.62rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--dim)}
 .rankup-name{font-size:1.1rem;font-family:var(--font-display);color:var(--gold)}
-.hdr-right{display:flex;gap:5px;flex-shrink:0}
+.hdr-right{display:flex;gap:4px;flex-shrink:0;align-items:center}
 .hbtn{background:none;border:1px solid var(--border);color:var(--dim);padding:5px 9px;border-radius:6px;cursor:pointer;font-size:.7rem;flex-shrink:0}
 .hbtn:active{border-color:var(--gold);color:var(--gold)}
 .ptoggle{background:none;border:none;color:var(--gold);font-size:1.4rem;cursor:pointer;padding:4px 6px 4px 0;line-height:1;flex-shrink:0}
+.hdr-menu{position:relative}
+.hbtn-menu{font-size:1.1rem;padding:5px 8px;letter-spacing:2px}
+.hdr-dropdown{display:none;position:absolute;top:100%;right:0;margin-top:6px;background:var(--surf2);border:1px solid var(--border);border-radius:10px;min-width:160px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:60;overflow:hidden}
+.hdr-dropdown.show{display:block}
+.hdd-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--text);padding:11px 16px;font-size:.82rem;cursor:pointer;font-family:var(--font)}
+.hdd-item:active{background:var(--goldg)}
+.hdd-danger{color:var(--red)}
+.hdd-sep{border:none;border-top:1px solid var(--border);margin:0}
 .panel-topbar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
-@media(max-width:360px){.htitle{display:none}}
 
 /* PROGRESS */
 .pbar{position:fixed;top:var(--hdr);left:0;right:0;height:3px;background:var(--border);z-index:30}
@@ -324,26 +328,25 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 <div class="hdr">
   <button class="ptoggle" onclick="togglePanel()">&#9776;</button>
   <div class="hdr-center">
-    <span class="htitle">&#9879; Alchemist's Workshop</span>
     <div class="hstats">
-      <div class="hstat">
-        <span class="hstat-n"><em id="s-found">4</em><span class="hstat-sep">/</span><em id="s-total">0</em></span>
-        <span class="hstat-l">found</span>
-      </div>
+      <span class="hstat-inline"><em id="s-found">4</em><span class="hstat-sep">/</span><em id="s-total">0</em></span>
       <div class="hstat-div"></div>
-      <div class="hstat">
-        <span class="hstat-n hstat-n-done"><em id="s-done">0</em></span>
-        <span class="hstat-l">complete</span>
-      </div>
+      <span class="hstat-inline hstat-n-done"><em id="s-done">0</em> &#10003;</span>
     </div>
     <span class="hrank rank-0" id="hrank">Apprentice</span>
   </div>
   <em id="s-new" style="display:none">0</em>
   <div class="hdr-right">
-    <button class="hbtn" onclick="openProfile()">Profile</button>
-    <button class="hbtn" onclick="openSettings()">⚙</button>
-    <button class="hbtn" onclick="clearWS()">Clear</button>
-    <button class="hbtn" onclick="resetGame()" style="color:var(--red);border-color:var(--red)">Reset</button>
+    <button class="hbtn" onclick="clearWS()" title="Clear board">Clear</button>
+    <div class="hdr-menu">
+      <button class="hbtn hbtn-menu" onclick="toggleHeaderMenu()" title="More">&#8942;</button>
+      <div class="hdr-dropdown" id="hdr-dropdown">
+        <button class="hdd-item" onclick="openProfile();toggleHeaderMenu()">&#128100; Profile</button>
+        <button class="hdd-item" onclick="openSettings();toggleHeaderMenu()">&#9881; Settings</button>
+        <hr class="hdd-sep">
+        <button class="hdd-item hdd-danger" onclick="resetGame()">&#8634; Reset Game</button>
+      </div>
+    </div>
   </div>
 </div>
 <div class="pbar"><div class="pbar-f" id="pbar" style="width:0"></div></div>
@@ -3695,6 +3698,15 @@ function togglePanel() {
   if (document.getElementById('panel').classList.contains('open')) closePanel();
   else openPanel();
 }
+function toggleHeaderMenu() {
+  document.getElementById('hdr-dropdown').classList.toggle('show');
+}
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('hdr-dropdown');
+  if (dd && dd.classList.contains('show') && !e.target.closest('.hdr-menu')) {
+    dd.classList.remove('show');
+  }
+});
 
 // setTab removed — journal is now in #jside
 
