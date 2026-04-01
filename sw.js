@@ -1,4 +1,4 @@
-const CACHE = 'alchemist-v2';
+const CACHE = 'alchemist-v3';
 const ASSETS = [
   './alchemist-workshop.html',
   './manifest.json'
